@@ -1,0 +1,9 @@
+<h2>Daftar Quiz untuk Dilihat Komentarnya</h2>
+
+<ul>
+{% for q in quizzes %}
+    <li>
+        <a href="/comments/{{ q.id }}/">{{ q.title }}</a>
+    </li>
+{% endfor %}
+</ul>

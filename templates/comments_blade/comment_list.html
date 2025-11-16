@@ -1,0 +1,26 @@
+<h2>Komentar untuk: {{ quiz.title }}</h2>
+
+<form method="POST" action="/comments/add/">
+    {% csrf_token %}
+    <textarea name="content" required></textarea>
+    <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
+
+    {% if not request.user.is_authenticated %}
+        <input type="text" name="guest_username" placeholder="Nama Tamu" required>
+    {% endif %}
+
+    <button type="submit">Kirim</button>
+</form>
+
+<hr>
+
+{% for c in comments %}
+    <p>
+        <strong>
+            {% if c.user %}{{ c.user.username }}{% else %}{{ c.guest_username }}{% endif %}
+        </strong><br>
+        {{ c.content }}<br>
+        <small>{{ c.created_at }}</small>
+    </p>
+    <hr>
+{% endfor %}
